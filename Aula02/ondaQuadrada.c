@@ -1,11 +1,12 @@
-// Vinícius Meng - 0250583
+// VinÃ­cius Meng - 0250583
+
 /* ########################################################################
 
    PICsim - PIC simulator http://sourceforge.net/projects/picsim/
 
    ########################################################################
 
-   Copyright (c) : 2015  Luis Claudio Gambôa Lopes
+   Copyright (c) : 2015  Luis Claudio GambÃ´a Lopes
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -46,13 +47,13 @@
     tempo de troca de RB0 = 1us * 4 * 250 * 500 = 0.500 s
  */
 
-int counter1 = 0; // Variável de contagem auxiliar
+int counter1 = 0; // VariÃ¡vel de contagem auxiliar
 int sobeOuDesce = 0;
 int dutyCicle = 500;
 int dutyCicleEscolhido = 500;
 int display = 8;
 
-void __interrupt() IRS(void) // Vetor de interrupção 
+void __interrupt() IRS(void) // Vetor de interrupÃ§Ã£o 
 {
     if (INTCONbits.T0IF == 1) // Houve o estouro do TIMER0?
     {
@@ -60,7 +61,7 @@ void __interrupt() IRS(void) // Vetor de interrupção
         //RA0 = ~RA0;
         TMR0 = 0x06; // Reinicia o registrador TMR0
 
-        T0IF = 0x00; // Limpa a flag para a próxima interrupção
+        T0IF = 0x00; // Limpa a flag para a prÃ³xima interrupÃ§Ã£o
     }
 } //end interrupt
 
@@ -68,14 +69,14 @@ void main() {
     OPTION_REG = 0x81; //Desabilita os resistores de pull-up internos pagina 24
     //Configura o prescaler para 1:4 associado ao TMR0
     // pagina 26
-    GIE = 0x01; //Habilita a interrupção global
-    PEIE = 0x01; //Habilita a interrupção por periféricos
-    T0IE = 0x01; //Habilita a interrupção por estouro do TMR0
+    GIE = 0x01; //Habilita a interrupÃ§Ã£o global
+    PEIE = 0x01; //Habilita a interrupÃ§Ã£o por perifÃ©ricos
+    T0IE = 0x01; //Habilita a interrupÃ§Ã£o por estouro do TMR0
 
     TMR0 = 0x06; //Inicia a contagem em 0
 
     TRISB = 0X00;
-    TRISA0 = 0x00; //Configura o RB0 como saída digital
+    TRISA0 = 0x00; //Configura o RB0 como saÃ­da digital
     RA0 = 1; //Inicia RB0 em LOW
 
     while (1) {
