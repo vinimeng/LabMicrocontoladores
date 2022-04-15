@@ -1,27 +1,20 @@
-// VinÌcius Meng - 0250583 - Usar clock em 4MHz
+// Vin√≠cius Meng - 0250583 - Usar clock em 4MHz
 
 /* ########################################################################
-
    PICsim - PIC simulator http://sourceforge.net/projects/picsim/
-
    ########################################################################
-
-   Copyright (c) : 2015  Luis Claudio GambÙa Lopes
-
+   Copyright (c) : 2015  Luis Claudio Gamb√¥a Lopes
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 2, or (at your option)
    any later version.
-
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
    For e-mail suggestions :  lcgamboa@yahoo.com
    ######################################################################## */
 
@@ -50,17 +43,17 @@
     tempo de troca de RB0 = 1us * 4 * 250 * 500 = 0.500 s
  */
 
-int counter1 = 0x00; // Vari·vel de contagem auxiliar
+int counter1 = 0x00; // Vari√°vel de contagem auxiliar
 
-void __interrupt() IRS(void) // Vetor de interrupÁ„o 
+void __interrupt() IRS(void) // Vetor de interrup√ß√£o 
 {
     if (INTCONbits.T0IF == 1) // Houve o estouro do TIMER0?
     {
         counter1++; // Incrementa o counter
-        
+
         TMR0 = 0x06; // Reinicia o registrador TMR0
 
-        T0IF = 0x00; // Limpa a flag para a prÛxima interrupÁ„o
+        T0IF = 0x00; // Limpa a flag para a pr√≥xima interrup√ß√£o
     }
 } //end interrupt
 
@@ -70,13 +63,14 @@ void main() {
     unsigned int min3;
     unsigned int mili;
     unsigned char i;
+    unsigned char str[2];
 
     OPTION_REG = 0x81; //Desabilita os resistores de pull-up internos pagina 24
     //Configura o prescaler para 1:4 associado ao TMR0
     // pagina 26
-    GIE = 0x01; //Habilita a interrupÁ„o global
-    PEIE = 0x01; //Habilita a interrupÁ„o por perifÈricos
-    T0IE = 0x01; //Habilita a interrupÁ„o por estouro do TMR0
+    GIE = 0x01; //Habilita a interrup√ß√£o global
+    PEIE = 0x01; //Habilita a interrup√ß√£o por perif√©ricos
+    T0IE = 0x01; //Habilita a interrup√ß√£o por estouro do TMR0
 
     TMR0 = 0x06; //Inicia a contagem em 0
 
@@ -91,30 +85,32 @@ void main() {
     RA2 ^= 1;
     PORTA ^= 0x40;
     PORTA ^= 0x80;
-    
+
     lcd_init();
 
     i2c_init();
-    
+
     i = 0;
     
+    str[1] = '\0';
+
     while (i < 2) {
         if (i < 1) {
             min1 = (int) tc_tecla(0);
-            char str = (char) (min1 + 0x30);
+            str[0] = min1 + '0';
             lcd_str(str);
         } else {
             min2 = (int) tc_tecla(0);
-            char str = (char) (min2 + 0x30);
+            str[0] = min2 + '0';
             lcd_str(str);
         }
-        
+
         i++;
     }
-    
+
     min3 = (min1 * 10) + min2;
     mili = min3 * 60 * 1000;
-    
+
     while (1) {
         if (counter1 >= mili) // 1us * 4 * 250 * 500 = 500ms
         {
