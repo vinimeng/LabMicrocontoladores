@@ -1,10 +1,10 @@
-// Vinícius Meng - 0250583 - guarda uma sequencia em que o leds devem se acender
-// e a cada 5 seg acende um led da sequência
+// VinÃ­cius Meng - 0250583 - guarda uma sequencia em que o leds devem se acender
+// e a cada 5 seg acende um led da sequÃªncia
 
 /* ########################################################################
    PICsim - PIC simulator http://sourceforge.net/projects/picsim/
    ########################################################################
-   Copyright (c) : 2015  Luis Claudio Gambôa Lopes
+   Copyright (c) : 2015  Luis Claudio GambÃ´a Lopes
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 2, or (at your option)
@@ -62,14 +62,14 @@ void main() {
     tmp[1] = '\0'; // coloca null terminator na string (array de char)
 
     while (i < 4) {
-        // mais 0x30 porque do 0x00 ao 0x30 são comandos e simbolos na tabela ASCII
+        // mais 0x30 porque do 0x00 ao 0x30 sÃ£o comandos e simbolos na tabela ASCII
         // tc_tecla(0) para esperar infinitamente pelo comando
-        // o parâmetro é o tempo de espera
+        // o parÃ¢metro Ã© o tempo de espera
         tmp[0] = tc_tecla(0) + 0x30;
 
         if (tmp[0] == '1' || tmp[0] == '2' || tmp[0] == '6' || tmp[0] == '7') {
             lcd_str(tmp);
-            e2pext_w(i, tmp[0]); // Salva na memória EEPROM | posição, char
+            e2pext_w(i, tmp[0]); // Salva na memÃ³ria EEPROM | posiÃ§Ã£o, char
             i++;
         }
     }
@@ -106,7 +106,7 @@ void main() {
         
         if ((seg2 - seg1) >= 5  && i < 4) {
             seg1 = seg2;
-            tmp[0] = (char) e2pext_r(i); // Lê na memória EEPROM | posição
+            tmp[0] = (char) e2pext_r(i); // LÃª na memÃ³ria EEPROM | posiÃ§Ã£o
             
             if (tmp[0] == '1') {
                 RA1 ^= 1;
