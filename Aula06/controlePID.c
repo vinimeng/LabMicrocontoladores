@@ -63,7 +63,8 @@ void main() {
     unsigned int temperaturaAtual;
     char temperaturaString[6];
 
-    unsigned int setpoint = 37 * 10; // temperatura desejada (vezes 10 porque a parte fracionária é o último digito do número inteiro)
+    // temperatura desejada (vezes 10 porque a parte fracionária é o último digito do número inteiro)
+    unsigned int setpoint = 37 * 10;
     int kp = 1;
     int ki = 0;
     int kd = 0;
@@ -88,7 +89,6 @@ void main() {
     lcd_cmd(L_L1);
     lcd_str("REF   OFF  SAIDA");
 
-    //PORTCbits.RC2 = 1;
     ligado = 0;
 
     while (1) {
@@ -169,7 +169,7 @@ void main() {
         if (ligado) {
             if (temperaturaAtual >= setpoint) {
                 BitClr(T2CON, 2);
-                BitClr(PORTC, 5);
+                BitClr(PORTC, 2);
             } else if (temperaturaAtual <= setpoint) {
                 pwmFrequency(1000); //frequência 2000 do pwm
                 pwmSet1(pwm); //atualiza duty cycle do pwm
@@ -177,7 +177,7 @@ void main() {
             }
         } else {
             BitClr(T2CON, 2);
-            BitClr(PORTC, 5);
+            BitClr(PORTC, 2);
         }
     }
 }
@@ -289,4 +289,3 @@ void interrupt isrh() {
     INTCONbits.T0IF = 0;
     TMR0 = 6;
 }
-
