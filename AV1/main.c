@@ -1,5 +1,7 @@
 // Vinícius Meng - 0250583
 // PICGenios - PIC16F877A
+// https://exploreembedded.com/wiki/PIC16f877a_Timer
+// https://www.academia.edu/9801017/Interrup%C3%A7%C3%A3o_do_Timer_0_PIC16F877A
 
 /* ########################################################################
 
