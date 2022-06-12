@@ -1,6 +1,6 @@
-// Vinícius Meng - 0250583
+// Vinicius Meng - 0250583
 // PICGenios - PIC16F877A
-// A ideia é ser um joguinho estilo shooter
+// A ideia eh ser um joguinho estilo shooter
 // Pode ir para baixo e para cima com a nave e atirar
 // Deve ligar o buzzer na placa
 // Clk deve ser de 20MHz
@@ -8,7 +8,6 @@
 
 #include <xc.h>
 #include <stdlib.h>
-#include "adc.h"
 
 // = PIC16F877A =
 
@@ -20,11 +19,6 @@
 #pragma config CPD   = OFF // Data EEPROM Memory Code Protection bit (Data EEPROM code protection off)
 #pragma config WRT   = OFF // Flash Program Memory Write Enable bits (Write protection off; all program memory may be written to by EECON control)
 #pragma config CP    = OFF // Flash Program Memory Code Protection bit (Code protection off)
-
-#define BitSet(arg,bit) ((arg) |= (1<<bit))
-#define BitClr(arg,bit) ((arg) &= ~(1<<bit)) 
-#define BitFlp(arg,bit) ((arg) ^= (1<<bit)) 
-#define BitTst(arg,bit) ((arg) & (1<<bit)) 
 
 // ============= 
 // ==== LCD ====
@@ -74,7 +68,6 @@ unsigned char grid[4][16] = {
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 };
-unsigned char blinkState; // SEM PISCAR = 0, PISCANDO LINHA 1 = 1, PISCANDO LINHA 2 = 2, PISCANDO LINHA 3 = 3, PISCANDO LINHA 4 = 4
 unsigned char gameState; // MENU = 0, TUTORIAL = 1, GAME = 2, GAMEOVER = 3
 unsigned char framesBlink;
 unsigned char blinkOnOff;
